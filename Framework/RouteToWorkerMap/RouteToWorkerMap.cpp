@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "RouteToWorkerMap.h"
 
-Worker& RouteToWorkerMap::getWorkerByKey(std::string& key)
+Worker& RouteToWorkerMap::getWorkerByKey(const std::string& key)
 {
 	return routeToWorkerMap_.at(key);
 }

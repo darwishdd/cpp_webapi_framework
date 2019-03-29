@@ -18,8 +18,7 @@ int main()
 {
 	Worker worker;
 	state::routeToWorkerMap.insert("worker", worker);
-	auto worker_name = static_cast<std::string>("worker");
-	auto worker_ref = state::routeToWorkerMap.getWorkerByKey(worker_name);
+	auto worker_ref = state::routeToWorkerMap.getWorkerByKey("worker");
 
 	worker_ref.push_function([](FunctionParameter a)->FunctionReturn {
 		std::cout << a; return a;
