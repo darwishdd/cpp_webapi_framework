@@ -3,20 +3,22 @@
 #include <functional>
 #include <iostream>
 #include <string>
-
+//#include req/response classes
+class Request;
+class Response;
 //typedef int(*WorkerFunction)(int); //because ugly
-typedef std::function<int(int)> WorkerFunction; //because not ugly
+typedef std::function<Response&(Request&, Response&)> WorkerFunction; //because not ugly
 typedef int FunctionParameter;
 typedef int FunctionReturn;
 
 class Worker
 {
 	std::list<WorkerFunction> queue_{};
-	std::list<FunctionParameter> params_{};
+
 
 public:
-	void push_function(WorkerFunction f, FunctionParameter a);
+	void push_function(WorkerFunction f);
 
-	void activate();
+	Response& activate(Request& request, Response& resp);
 };
 

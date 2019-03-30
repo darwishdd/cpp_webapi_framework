@@ -22,6 +22,6 @@ int main()
 
 	worker_ref.push_function([](FunctionParameter a)->FunctionReturn {
 		std::cout << a; return a;
-	}, 6);
+	});
 	worker_ref.activate();
 }

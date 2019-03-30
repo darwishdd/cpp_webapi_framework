@@ -1,19 +1,20 @@
 #include "pch.h"
 #include "Worker.h"
 
-void Worker::push_function(WorkerFunction f, FunctionParameter a)
+class Reequest;
+class Response;
+
+void Worker::push_function(WorkerFunction f)
 {
 	queue_.emplace_back(f);
-	params_.emplace_back(a);
 }
 
-void Worker::activate()
+Response& Worker::activate(Request& request, Response& response)
 {
-	auto f = queue_.begin();
-	auto p = params_.begin();
-	for (; f != queue_.end(); ++f, ++p)
+	for (auto f = queue_.begin(); f != queue_.end(); ++f)
 	{
-		const auto status_code = (*f)(*p);
-		if (status_code < 0) break;
+		(*f)(request, response);
+		//if (!response) break;
 	}
+	return response;
 }
