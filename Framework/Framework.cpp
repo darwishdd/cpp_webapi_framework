@@ -4,6 +4,9 @@
 #include <string>
 #include "Worker/Worker.h"
 #include "RouteToWorkerMap/RouteToWorkerMap.h"
+#include "Response/Response.hpp"
+#include "Request/Request.h"
+#include <thread>
 
 class state
 {
@@ -16,12 +19,17 @@ RouteToWorkerMap state::routeToWorkerMap{};
 
 int main()
 {
+
 	Worker worker;
 	state::routeToWorkerMap.insert("worker", worker);
 	auto worker_ref = state::routeToWorkerMap.getWorkerByKey("worker");
 
-	worker_ref.push_function([](FunctionParameter a)->FunctionReturn {
-		std::cout << a; return a;
+	worker_ref.push_function([](Request_& request, Response_& response)-> Response_&
+	{
+
+		return response;
 	});
-	worker_ref.activate();
+	Request_ req{};
+	Response_ res{};
+	worker_ref.activate(req, res);
 }

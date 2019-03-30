@@ -152,6 +152,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Request\Request.h" />
+    <ClInclude Include="Response\Response.hpp" />
     <ClInclude Include="RouteToWorkerMap\RouteToWorkerMap.h" />
     <ClInclude Include="Worker\Worker.h" />
   </ItemGroup>
@@ -163,6 +165,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Request\Request.cpp" />
+    <ClCompile Include="Response\Response.cpp" />
     <ClCompile Include="RouteToWorkerMap\RouteToWorkerMap.cpp" />
     <ClCompile Include="Worker\Worker.cpp" />
   </ItemGroup>

@@ -24,6 +24,12 @@
     <ClInclude Include="RouteToWorkerMap\RouteToWorkerMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Request\Request.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Response\Response.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -36,6 +42,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RouteToWorkerMap\RouteToWorkerMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Request\Request.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Response\Response.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

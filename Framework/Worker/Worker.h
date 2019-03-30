@@ -3,13 +3,11 @@
 #include <functional>
 #include <iostream>
 #include <string>
-//#include req/response classes
-class Request;
-class Response;
+#include "../Request/Request.h"
+#include "../Response/Response.hpp"
+
 //typedef int(*WorkerFunction)(int); //because ugly
-typedef std::function<Response&(Request&, Response&)> WorkerFunction; //because not ugly
-typedef int FunctionParameter;
-typedef int FunctionReturn;
+typedef std::function<Response_&(Request_&, Response_&)> WorkerFunction; //because not ugly
 
 class Worker
 {
@@ -19,6 +17,6 @@ class Worker
 public:
 	void push_function(WorkerFunction f);
 
-	Response& activate(Request& request, Response& resp);
+	Response_& activate(Request_& request, Response_& resp);
 };
 
