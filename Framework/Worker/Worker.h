@@ -20,11 +20,11 @@ public:
 	Worker(const Worker& worker) : queue_{ worker.queue_ }
 	{}
 
-	void push_function(WorkerFunction f);
+	void pushFunction(WorkerFunction f);
 
 	Response_& activate(Request_& request, Response_& response);
 
-	void insert_before_last(WorkerFunction f);
+	void insertBeforeLast(WorkerFunction f);
 
 };
 

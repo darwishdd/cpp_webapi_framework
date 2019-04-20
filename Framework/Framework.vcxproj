@@ -154,6 +154,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Request\Request.h" />
     <ClInclude Include="Response\Response.h" />
+    <ClInclude Include="Router\Router.h" />
     <ClInclude Include="RouteToWorkerMap\RouteToWorkerMap.h" />
     <ClInclude Include="State\State.h" />
     <ClInclude Include="Worker\Worker.h" />

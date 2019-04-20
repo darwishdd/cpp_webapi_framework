@@ -11,4 +11,5 @@ public:
 	void modify(const std::string& key, Worker& worker);
 	//private:
 	std::map<std::string, Worker&> routeToWorkerMap_{};
+	~RouteToWorkerMap();
 };

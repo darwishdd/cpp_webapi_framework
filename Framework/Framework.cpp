@@ -18,25 +18,27 @@ RouteToWorkerMap state::routeToWorkerMap{};
 int main()
 {
 	Router router{ "students" };
-	auto ref = [](Request_& request, Response_& response)-> bool {return true; };
+	const auto ref = [](Request_& request, Response_& response)-> bool {return true; };
+	const auto ref2 = [](Request_& request, Response_& response)-> bool {return true; };
+	const auto ref3 = [](Request_& request, Response_& response)-> bool {return true; };
+	const auto ref4 = [](Request_& request, Response_& response)-> bool {return true; };
+	const auto ref5 = [](Request_& request, Response_& response)-> bool {return true; };
 
 	router.use(ref);
-	router.on("get", ref);
-	router.on("post", ref);
+	router.on("get", ref2);
+	router.on("post", ref3);
+	router.use(ref4);
+	router.use(ref5);
 
 	Request_ req{};
 	Response_ res{};
-	state::routeToWorkerMap.getWorkerByKey("students/get").activate(req, res);
-
-	router.use(ref);
-	router.use(ref);
-
+	state::routeToWorkerMap.getWorkerByKey("students/get").activate(req, res); //activates ref->ref2->ref4->ref5
 
 	/*Worker worker;
 	state::routeToWorkerMap.insert("worker", worker);
 	auto worker_ref = state::routeToWorkerMap.getWorkerByKey("worker");
 
-	worker_ref.push_function([](Request_& request, Response_& response)-> bool
+	worker_ref.pushFunction([](Request_& request, Response_& response)-> bool
 	{
 		return true;
 	});

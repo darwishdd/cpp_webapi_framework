@@ -3,7 +3,7 @@
 #include <iterator>
 
 
-void Worker::push_function(WorkerFunction f)
+void Worker::pushFunction(WorkerFunction f)
 {
 	queue_.emplace_back(f);
 }
@@ -12,15 +12,15 @@ Response_& Worker::activate(Request_& request, Response_& response)
 {
 	for (auto f = queue_.begin(); f != queue_.end(); ++f)
 	{
-		const auto function_result = (*f)(request, response);
-		if (!function_result) break;
+		const auto functionResult = (*f)(request, response);
+		if (!functionResult) break;
 	}
 
 	return response;
 
 }
 
-void Worker::insert_before_last(WorkerFunction f)
+void Worker::insertBeforeLast(const WorkerFunction f)
 {
 	auto it = queue_.end();
 	--it;
