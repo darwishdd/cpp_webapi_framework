@@ -17,6 +17,6 @@ class Worker
 public:
 	void push_function(WorkerFunction f);
 
-	Response_& activate(Request_& request, Response_& resp);
+	Response_& activate(Request_& request, Response_& response);
 };
 
