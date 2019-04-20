@@ -10,3 +10,8 @@ void RouteToWorkerMap::insert(const std::string& key, Worker& worker)
 {
 	routeToWorkerMap_.emplace(key, worker);
 }
+
+void RouteToWorkerMap::modify(const std::string& key, Worker& worker)
+{
+	routeToWorkerMap_.insert_or_assign(key, worker);
+}

@@ -8,6 +8,7 @@ class RouteToWorkerMap
 public:
 	void insert(const std::string& key, Worker& worker);
 	Worker& getWorkerByKey(const std::string& key);
-private:
+	void modify(const std::string& key, Worker& worker);
+	//private:
 	std::map<std::string, Worker&> routeToWorkerMap_{};
 };

@@ -27,7 +27,10 @@
     <ClInclude Include="Request\Request.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Response\Response.hpp">
+    <ClInclude Include="Response\Response.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="State\State.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -48,6 +51,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Response\Response.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Router\Router.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -153,8 +153,9 @@
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Request\Request.h" />
-    <ClInclude Include="Response\Response.hpp" />
+    <ClInclude Include="Response\Response.h" />
     <ClInclude Include="RouteToWorkerMap\RouteToWorkerMap.h" />
+    <ClInclude Include="State\State.h" />
     <ClInclude Include="Worker\Worker.h" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +168,7 @@
     </ClCompile>
     <ClCompile Include="Request\Request.cpp" />
     <ClCompile Include="Response\Response.cpp" />
+    <ClCompile Include="Router\Router.cpp" />
     <ClCompile Include="RouteToWorkerMap\RouteToWorkerMap.cpp" />
     <ClCompile Include="Worker\Worker.cpp" />
   </ItemGroup>
