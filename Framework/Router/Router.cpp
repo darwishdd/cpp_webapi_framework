@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Router.h"
+#include "../State/State.h"
 
 Router::Router(const std::string path = "") : path_{ path }
 {}
@@ -26,7 +27,7 @@ void Router::on(const std::string method, const WorkerFunction handler)
 	handlers_[method] = handler;
 	auto worker = new Worker{ middleware_ };
 	worker->pushFunction(handler);
-
+	createdWorkers.emplace_back(worker);
 	state::routeToWorkerMap.modify(getFullRoute(method), *worker);
 }
 

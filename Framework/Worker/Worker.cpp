@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Worker.h"
-#include <iterator>
+
 
 
 void Worker::pushFunction(WorkerFunction f)
@@ -25,7 +25,4 @@ void Worker::insertBeforeLast(const WorkerFunction f)
 	auto it = queue_.end();
 	--it;
 	queue_.insert(it, f);
-
-
-
 }

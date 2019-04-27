@@ -1,8 +1,7 @@
 #pragma once
 #include <list>
 #include <functional>
-#include <iostream>
-#include <string>
+
 #include "../Request/Request.h"
 #include "../Response/Response.h"
 
@@ -11,7 +10,6 @@ typedef std::function<bool(Request_&, Response_&)> WorkerFunction; //because not
 
 class Worker
 {
-
 	std::list<WorkerFunction> queue_{};
 
 public:

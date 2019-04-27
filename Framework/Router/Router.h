@@ -1,8 +1,8 @@
+#pragma once
 #include <map>
 #include <functional>
 #include <string>
 #include "../Request/Request.h"
-#include "../State/State.h"
 #include "../Worker/Worker.h"
 
 class Router
@@ -10,6 +10,7 @@ class Router
 	std::map<std::string, WorkerFunction> handlers_{};
 	std::string path_;
 	Worker middleware_{};
+	std::vector<Worker*>createdWorkers{};
 
 public:
 	explicit Router(std::string path);

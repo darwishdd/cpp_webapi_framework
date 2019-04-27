@@ -15,11 +15,3 @@ void RouteToWorkerMap::modify(const std::string& key, Worker& worker)
 {
 	routeToWorkerMap_.insert_or_assign(key, worker);
 }
-
-RouteToWorkerMap::~RouteToWorkerMap()
-{
-	for (auto pair : routeToWorkerMap_)
-	{
-		delete &(pair.second);
-	}
-}
