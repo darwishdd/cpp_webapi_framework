@@ -1,4 +1,4 @@
-#include "pch.h"
+
 
 #include "Worker/Worker.h"
 #include "RouteToWorkerMap/RouteToWorkerMap.h"
@@ -6,10 +6,11 @@
 #include "Request/Request.h"
 #include "State/State.h"
 #include "Router/Router.h"
-
+#include "RoutersTree/RoutersTree.h"
+//#include "RoutersTree/RoutersTree.cpp"
 
 RouteToWorkerMap state::routeToWorkerMap{};
-
+RoutersTree state::routersTree{};
 
 int main()
 {
@@ -21,14 +22,14 @@ int main()
 	const auto ref5 = [](Request_& request, Response_& response)-> bool {return true; };
 
 	router.use(ref);
-	router.on("get", ref2);
-	router.on("post", ref3);
+	router.on(GET, ref2);
+	router.on(POST, "edit", ref3);
 	router.use(ref4);
 	router.use(ref5);
 
 	Request_ req{};
 	Response_ res{};
-	state::routeToWorkerMap.getWorkerByKey("students/get").activate(req, res); //activates ref->ref2->ref4->ref5
+	state::routeToWorkerMap.getWorkerByKey("GET students").activate(req, res); //activates ref->ref2->ref4->ref5
 
 	/*Worker worker;
 	state::routeToWorkerMap.insert("worker", worker);

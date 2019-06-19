@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Worker\Worker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -36,11 +33,11 @@
     <ClInclude Include="Router\Router.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RoutersTree\RoutersTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Framework.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -57,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Router\Router.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RoutersTree\RoutersTree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
