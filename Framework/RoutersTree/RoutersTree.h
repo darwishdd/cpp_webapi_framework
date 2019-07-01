@@ -9,6 +9,8 @@
 #include <regex>
 #include <list>
 
+void split(const std::string& str, std::vector<std::string>& cont, const char delimiter );
+
 enum Operation{
 	GET,
 	POST,

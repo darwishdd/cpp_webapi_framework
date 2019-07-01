@@ -1,22 +1,29 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <iostream>
+#include <fstream>
+#include <map>
+#include <sstream>
+#include "../RoutersTree/RoutersTree.h"
 
 class Request_
 {
 public:
-	Request_() = default;
-	std::wstring url;
-	std::wstring host;
-	std::wstring userAgent;
-	std::wstring accept;
-	std::vector<std::string> languages{};
-	std::wstring charsets;
-	std::wstring authorization;
-	std::wstring referer;
-	std::wstring contentType;
-	std::wstring root;
+	std::string url;
+	std::map< std::string , std::string > query;
+	std::string queryString;
+	std::string ip;
+	std::string method;
+	std::string root;
 	std::string body;
-	~Request_() = default;
+	std::string headersString;
+	std::map<std::string, std::string> headers;
+	std::stringstream serialize();
+	void deserialize(std::stringstream& sin);
+	std::pair<std::string, std::string> splitPair(const std::string& str, const char delimiter = ' ');
+	
 };
 
+std::ofstream& operator<< (std::ofstream& out, const Request_& request);
+std::ostream& operator<< (std::ostream& out, const Request_& request);

@@ -1,8 +1,7 @@
 #include "RoutersTree.h"
 
 
-template <class Container>
-void split(const std::string& str, Container& cont, const char delimiter = ' ')
+void split(const std::string& str, std::vector<std::string>& cont, const char delimiter = ' ')
 {
 	std::size_t previous = 0;
 	auto current = str.find(delimiter);
@@ -14,6 +13,7 @@ void split(const std::string& str, Container& cont, const char delimiter = ' ')
 	}
 	cont.emplace_back(str.substr(previous, current - previous));
 }
+
 
 std::string RoutersTree::operationToString(const Operation operation) {
 	switch (operation)
