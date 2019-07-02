@@ -1,4 +1,5 @@
 #include "Request.h"
+#include "../Utils/Utils.h"
 
 std::ofstream& operator<< (std::ofstream& out, const Request_& request)
 {
@@ -124,15 +125,4 @@ void Request_::deserialize(std::stringstream& sin)
 
 	return;
 
-}
-
-std::pair<std::string, std::string> Request_::splitPair(const std::string& str, const char delimiter)
-{
-	std::pair<std::string, std::string> temp;
-	auto current = str.find(delimiter);
-	temp.first = str.substr(0, current);
-	auto previous = current + 1;
-	current = str.find(delimiter, previous);
-	temp.second = str.substr(previous, current - previous);
-	return temp;
 }

@@ -161,6 +161,7 @@
     <ClInclude Include="Router\Router.h" />
     <ClInclude Include="RouteToWorkerMap\RouteToWorkerMap.h" />
     <ClInclude Include="State\State.h" />
+    <ClInclude Include="Utils\Utils.h" />
     <ClInclude Include="Worker\Worker.h" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +171,7 @@
     <ClCompile Include="RoutersTree\RoutersTree.cpp" />
     <ClCompile Include="Router\Router.cpp" />
     <ClCompile Include="RouteToWorkerMap\RouteToWorkerMap.cpp" />
+    <ClCompile Include="Utils\Utils.cpp" />
     <ClCompile Include="Worker\Worker.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

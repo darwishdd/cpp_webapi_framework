@@ -8,8 +8,8 @@
 #include <vector>
 #include <regex>
 #include <list>
+#include "../Request/Request.h"
 
-void split(const std::string& str, std::vector<std::string>& cont, const char delimiter );
 
 enum Operation{
 	GET,
@@ -36,7 +36,7 @@ class RoutersTree
 public:
 	//RoutersTree();
 	void add(Operation operation, const std::string& path);
-	Node& match(const std::string& path) ;
+	Node& match(const std::string& path,  Request_& request) ;
 	static std::string operationToString(const Operation operation);
 		
 };
