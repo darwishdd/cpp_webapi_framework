@@ -5,10 +5,9 @@
 #include "State/State.h"
 #include "Router/Router.h"
 #include "RoutersTree/RoutersTree.h"
-#include "Server/Server.h"
-
 RouteToWorkerMap state::routeToWorkerMap{};
 RoutersTree state::routersTree{};
+#include "Server/Server.h"
 
 int main()
 {
