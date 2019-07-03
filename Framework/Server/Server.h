@@ -7,6 +7,14 @@
 #include <string>
 #include <iostream>
 #include <string.h>
+#include "Worker/Worker.h"
+#include "RouteToWorkerMap/RouteToWorkerMap.h"
+#include "Response/Response.h"
+#include "Request/Request.h"
+#include "State/State.h"
+#include "Router/Router.h"
+#include "RoutersTree/RoutersTree.h"
+
 #define PORT 9090
 
 class Server
@@ -66,7 +74,7 @@ public:
 
                 Request_ req{};
                 Response_ res{};
-                req.deserialize(bufer);
+                req.deserialize(buffer);
                 state::routeToWorkerMap.getWorkerByKey(
                                            state::routersTree.match("/students/3/edit/5", req).operations.at(req.method).value)
                     .activate(req, res); //activates ref->ref2->ref4->ref5
