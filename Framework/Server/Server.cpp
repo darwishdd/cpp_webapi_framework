@@ -1,6 +1,6 @@
 #include "Server.h"
 
-Server::Server();
+Server::Server()
 {
     int opt = 1;
     // Creating socket file descriptor
