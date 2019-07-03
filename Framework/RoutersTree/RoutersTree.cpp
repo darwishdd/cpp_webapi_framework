@@ -72,7 +72,7 @@ void RoutersTree::add(Operation operation, const std::string& path)
 	allCreatedNodes.emplace_back(operationNode);
 	operationNode->isParameter = currentNode->isParameter;
 	operationNode->parameter = currentNode->parameter;
-	currentNode->operations.emplace(operation, *operationNode);
+	currentNode->operations.emplace(operationToString(operation), *operationNode);
 }
 
 Node& RoutersTree::match(const std::string& path, Request_& request)

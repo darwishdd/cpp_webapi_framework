@@ -4,8 +4,6 @@
 
 #include <string>
 #include <map>
-#include <iostream>
-#include <vector>
 #include <regex>
 #include <list>
 #include "../Request/Request.h"
@@ -25,7 +23,7 @@ struct Node
 	std::string parameter = "";
 	std::string value = "";
 	std::map<std::string, Node&> children{};
-	std::map<Operation, Node&> operations{};
+	std::map<std::string, Node&> operations{};
 };
 
 class RoutersTree
