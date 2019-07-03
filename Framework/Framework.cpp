@@ -29,7 +29,7 @@ int main()
 	// --------------------------------------
 	// Framework.run()
 	Server server{};
-	server.listen();
+	server.startMainLoop();
 
 	// -------------------------------------
 }

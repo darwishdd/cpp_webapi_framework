@@ -23,10 +23,10 @@ public:
     int server_fd, new_socket, valread;
     struct sockaddr_in address;
     int addrlen = sizeof(address);
+    char buffer[2 * 1024 * 1024]{};
     Server()
     {
         int opt = 1;
-        char buffer[2 * 1024 * 1024] = {0};
         // Creating socket file descriptor
         if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
         {
@@ -58,7 +58,7 @@ public:
             exit(EXIT_FAILURE);
         }
     }
-    void listen()
+    void startMainLoop()
     {
         while (true)
         {
