@@ -51,9 +51,10 @@ void Server::startMainLoop()
             Request_ req{};
             Response_ res{};
             req.deserialize(buffer);
-            state::routeToWorkerMap.getWorkerByKey(
-                                       state::routersTree.match(req.url, req).operations.at(req.method).value)
-                .activate(req, res); //activates ref->ref2->ref4->ref5
+            auto &node = state::routersTree.match(req.url, req);
+            std::cout << node.value << std::endl;
+            std::cout << node.operations.size() << std::endl;
+            state::routeToWorkerMap.getWorkerByKey(node.operations.at(req.method).value).activate(req, res); //activates ref->ref2->ref4->ref5
             auto stream = res.serialize();
             send(new_socket, stream.str().c_str(), stream.str().length(), 0);
             shutdown(new_socket, SHUT_RDWR);
