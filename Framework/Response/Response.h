@@ -13,26 +13,27 @@ public:
 	std::string data;
 	std::map<std::string, std::string> Headers;
 
-	void send(int StatusCode, std::string& message)
+	void send(int StatusCode, std::string &message)
 	{
 		statusCode = StatusCode;
 		data = std::move(message);
 	}
-	void send(int StatusCode, const std::string& message, const std::map<std::string, std::string>& headers)
+	void send(int StatusCode, const std::string &message, const std::map<std::string, std::string> &headers)
 	{
 		statusCode = StatusCode;
 		data = message + "<message>";
 		Headers = headers;
 	}
-	void setHeaders(std::string& key, std::string &value)
+	void setHeaders(std::string &key, std::string &value)
 	{
-		Headers.insert({ key,value });
+		Headers.insert({key, value});
 	}
-	std::stringstream serialize() {
+	std::stringstream serialize()
+	{
 		std::stringstream out;
 		out << data;
 		unsigned int i = 0;
-		for (const auto& elem : Headers)
+		for (const auto &elem : Headers)
 		{
 			if (Headers.size() - 1 == i)
 			{
@@ -45,10 +46,10 @@ public:
 
 		return out;
 	}
-	void deserialize(std::stringstream& sin) {
-		std::string word;
-		std::string message;
-		while (sin >> word)message += word + " ";
+	void deserialize(char *bin)
+	{
+		std::stringstream sin{bin};
+		std::string message{sin.str()};
 
 		const auto current = message.find("<message>");
 		data = message.substr(0, current);
@@ -56,8 +57,9 @@ public:
 		const auto HeadersString = message.substr(current + 9, message.length());
 		std::vector<std::string> headerStringsVector{};
 		split(HeadersString, headerStringsVector, ',');
-		for (const auto& header : headerStringsVector) {
-			Headers.insert(splitPair(std::string{ header }, ':'));
+		for (const auto &header : headerStringsVector)
+		{
+			Headers.insert(splitPair(std::string{header}, ':'));
 		}
 	}
 };

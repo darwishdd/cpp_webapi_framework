@@ -8,7 +8,7 @@ class Request_
 {
 public:
 	std::string url;
-	std::map< std::string, std::string > query;
+	std::map<std::string, std::string> query;
 	std::string queryString;
 	std::string ip;
 	std::string method;
@@ -18,8 +18,8 @@ public:
 	std::map<std::string, std::string> headers;
 	std::map<std::string, std::string> params;
 	std::stringstream serialize();
-	void deserialize(std::stringstream& sin);
+	void deserialize(char *bin);
 };
 
-std::ofstream& operator<< (std::ofstream& out, const Request_& request);
-std::ostream& operator<< (std::ostream& out, const Request_& request);
+std::ofstream &operator<<(std::ofstream &out, const Request_ &request);
+std::ostream &operator<<(std::ostream &out, const Request_ &request);
