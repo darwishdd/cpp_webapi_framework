@@ -7,13 +7,13 @@
 #include <string>
 #include <iostream>
 #include <string.h>
-#include "Worker/Worker.h"
-#include "RouteToWorkerMap/RouteToWorkerMap.h"
-#include "Response/Response.h"
-#include "Request/Request.h"
-#include "State/State.h"
-#include "Router/Router.h"
-#include "RoutersTree/RoutersTree.h"
+#include "../Worker/Worker.h"
+#include "../RouteToWorkerMap/RouteToWorkerMap.h"
+#include "../Response/Response.h"
+#include "../Request/Request.h"
+#include "../State/State.h"
+#include "../Router/Router.h"
+#include "../RoutersTree/RoutersTree.h"
 
 #define PORT 9090
 
