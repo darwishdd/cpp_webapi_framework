@@ -26,4 +26,4 @@ public:
     char buffer[2 * 1024 * 1024]{};
     Server();
     void startMainLoop();
-}
+};
