@@ -52,7 +52,7 @@ void Server::startMainLoop()
             Response_ res{};
             req.deserialize(buffer);
             state::routeToWorkerMap.getWorkerByKey(
-                                       state::routersTree.match("/students/3/edit/5", req).operations.at(req.method).value)
+                                       state::routersTree.match(req.url, req).operations.at(req.method).value)
                 .activate(req, res); //activates ref->ref2->ref4->ref5
             auto stream = res.serialize();
             send(new_socket, stream.str().c_str(), stream.str().length(), 0);

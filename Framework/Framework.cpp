@@ -12,7 +12,7 @@ int main()
 {
 	//tree, add routes, and match
 	// Framework.init()
-	Router router{"/students/:id"};
+	Router router{"/cgi-bin/api.cgi"};
 	const auto ref = [](Request_ &request, Response_ &response) -> bool { return true; };
 	const auto ref2 = [](Request_ &request, Response_ &response) -> bool { return true; };
 	const auto ref3 = [](Request_ &request, Response_ &response) -> bool { return true; };
@@ -21,7 +21,7 @@ int main()
 
 	router.use(ref);
 	router.on(GET, ref2);
-	router.on(POST, "edit/:id2", ref3);
+	// router.on(POST, "edit/:id2", ref3);
 	router.use(ref4);
 	router.use(ref5);
 	// --------------------------------------
