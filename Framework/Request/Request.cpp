@@ -6,7 +6,7 @@ std::ofstream& operator<< (std::ofstream& out, const Request_& request)
 	out << "url" << " " << request.url << std::endl;
 	out << "queryString" << std::endl;
 	out << "-----------" << std::endl;
-	for (auto elem : request.query)
+	for (const auto& elem: request.query)
 	{
 		out << elem.first << " " << elem.second << std::endl;
 	}
@@ -17,7 +17,7 @@ std::ofstream& operator<< (std::ofstream& out, const Request_& request)
 	out << "body" << " " << request.body << std::endl;
 	out << "httpHeaders" << std::endl;
 	out << "-----------" << std::endl;
-	for (auto elem : request.headers)
+	for (const auto& elem: request.headers)
 	{
 		out << elem.first << " " << elem.second << std::endl;
 	}
@@ -29,7 +29,7 @@ std::ostream& operator<< (std::ostream& out, const Request_& request)
 	out << "url" << " " << request.url << std::endl;
 	out << "queryString" << std::endl;
 	out << "-----------" << std::endl;
-	for (auto elem : request.query)
+	for (const auto& elem: request.query)
 	{
 		out << elem.first << " " << elem.second << std::endl;
 	}
@@ -40,7 +40,7 @@ std::ostream& operator<< (std::ostream& out, const Request_& request)
 	out << "body" << " " << request.body << std::endl;
 	out << "httpHeaders" << std::endl;
 	out << "-----------" << std::endl;
-	for (auto elem : request.headers)
+	for (const auto& elem: request.headers)
 	{
 		out << elem.first << " " << elem.second << std::endl;
 	}
@@ -58,7 +58,7 @@ std::stringstream Request_::serialize()
 	out << body << " <body>";
 	out << queryString << " <query>";
 
-	for (auto elem : headers)
+	for (const auto& elem : headers)
 	{
 		out << elem.first << ":" << elem.second << "\n";
 	}
@@ -109,7 +109,7 @@ void Request_::deserialize(std::stringstream& sin)
 	std::vector<std::string> queryStringsVector{};
 	//queryString = "a=3&b=1";
 	split(queryString, queryStringsVector, '&');
-	for (auto singleQuery : queryStringsVector)
+	for ( const auto &singleQuery : queryStringsVector)
 	{
 		query.insert(splitPair(std::string{ singleQuery }, '='));
 	}
@@ -118,7 +118,7 @@ void Request_::deserialize(std::stringstream& sin)
 	std::vector<std::string> headerStringsVector{};
 	//headersString = "HTTP_ACCEPT:*/*\nHTTP_ACCEPT_ENCODING:gzip, deflate\nHTTP_AUTHORIZATION:Bearer asdasjhdjkashdjagshdadh\nHTTP_CACHE_CONTROL:no - cache\nHTTP_CONNECTION : keep - alive\nHTTP_HOST : localhost\nHTTP_POSTMAN_TOKEN : 00915c67 - 95f1 - 44fc - 9eca - b1f4daac3c70\nHTTP_USER_AGENT : PostmanRuntime / 7.15.0";
 	split(headersString, headerStringsVector, '\n');
-	for (auto header : headerStringsVector)
+	for (const auto& header : headerStringsVector)
 	{
 		headers.insert(splitPair(std::string{ header }, ':'));
 	}

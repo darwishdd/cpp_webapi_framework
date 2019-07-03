@@ -19,7 +19,7 @@ std::pair<std::string, std::string> splitPair(const std::string& str, const char
 	std::pair<std::string, std::string> temp;
 	auto current = str.find(delimiter);
 	temp.first = str.substr(0, current);
-	auto previous = current + 1;
+	const auto previous = current + 1;
 	current = str.find(delimiter, previous);
 	temp.second = str.substr(previous, current - previous);
 	return temp;

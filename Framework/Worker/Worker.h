@@ -13,10 +13,7 @@ class Worker
 	std::list<WorkerFunction> queue_{};
 
 public:
-	Worker() = default;
 
-	Worker(const Worker& worker) : queue_{ worker.queue_ }
-	{}
 
 	void pushFunction(WorkerFunction f);
 
