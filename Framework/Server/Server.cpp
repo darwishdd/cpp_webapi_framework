@@ -55,7 +55,14 @@ void Server::startMainLoop()
             std::cout << node.value << std::endl;
             std::cout << node.operations.size() << std::endl;
             trim(req.method);
-            state::routeToWorkerMap.getWorkerByKey(node.operations.at(req.method).value).activate(req, res); //activates ref->ref2->ref4->ref5
+            if (node.operations.find(req.method) != node.operations.end())
+            {
+                res.send(404, "Not Found");
+            }
+            else
+            {
+                state::routeToWorkerMap.getWorkerByKey(node.operations.at(req.method).value).activate(req, res); //activates ref->ref2->ref4->ref5
+            }
             auto stream = res.serialize();
             send(new_socket, stream.str().c_str(), stream.str().length(), 0);
             shutdown(new_socket, SHUT_RDWR);
