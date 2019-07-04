@@ -58,7 +58,7 @@ void Server::startMainLoop()
             std::string notFound = "Not Found";
             if (node.operations.find(req.method) != node.operations.end())
             {
-                res.send(404, &notFound);
+                res.send(404, notFound);
             }
             else
             {
