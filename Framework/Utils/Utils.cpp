@@ -1,6 +1,6 @@
 #include "Utils.h"
 
-void split(const std::string& str, std::vector<std::string>& cont, const char delimiter)
+void split(const std::string &str, std::vector<std::string> &cont, const char delimiter)
 {
 	std::size_t previous = 0;
 	auto current = str.find(delimiter);
@@ -13,8 +13,7 @@ void split(const std::string& str, std::vector<std::string>& cont, const char de
 	cont.emplace_back(str.substr(previous, current - previous));
 }
 
-
-std::pair<std::string, std::string> splitPair(const std::string& str, const char delimiter)
+std::pair<std::string, std::string> splitPair(const std::string &str, const char delimiter)
 {
 	std::pair<std::string, std::string> temp;
 	auto current = str.find(delimiter);
