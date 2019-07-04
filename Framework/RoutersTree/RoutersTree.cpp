@@ -99,7 +99,8 @@ Node &RoutersTree::match(const std::string &path, Request_ &request)
 		}
 		else
 		{
-			return Node{false, key, "", "404"};
+			auto emptyNode = new Node{false, key, "", "404"};
+			currentNode = emptyNode;
 			//return Page404(path);
 		}
 	}
