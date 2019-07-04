@@ -55,7 +55,7 @@ int main(int argc, char **argv, char **envp)
 	std::cout << "<title>CGI Environment Variables</title>\n";
 	std::cout << "</head>\n";
 	std::cout << "<body>\n";
-	std::cout << responseString << std::endl;
+	std::cout << buffer << std::endl;
 	std::cout << "</body>\n";
 	std::cout << "</html>\n";
 	return 0;
