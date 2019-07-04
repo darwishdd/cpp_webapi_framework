@@ -23,9 +23,12 @@ void RoutersTree::add(Operation operation, const std::string &path)
 	std::vector<std::string> keys{};
 	split(path, keys, '/');
 	std::string value{};
-	for (const auto &key : keys)
+	for (auto &key : keys)
 	{
+		std::cout << "add|" << key << "|add" << std::endl;
+
 		value += key + '/';
+		trim(key);
 		if (currentNode->children.find(key) != currentNode->children.end())
 		{
 			currentNode = &currentNode->children.at(key);
@@ -80,9 +83,11 @@ Node &RoutersTree::match(const std::string &path, Request_ &request)
 	auto *currentNode = &root;
 	std::vector<std::string> keys{};
 	split(path, keys, '/');
-	for (const auto &key : keys)
+	for (auto &key : keys)
 	{
-		std::cout << key << std::endl;
+		trim(key);
+		std::cout << "match|" << key << "|match" << std::endl;
+
 		if (currentNode->children.find(key) != currentNode->children.end())
 		{
 			currentNode = &currentNode->children.at(key);
