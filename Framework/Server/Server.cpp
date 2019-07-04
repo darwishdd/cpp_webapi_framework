@@ -58,11 +58,11 @@ void Server::startMainLoop()
             std::string notFound = "Not Found";
             if (node.operations.find(req.method) != node.operations.end())
             {
-                res.send(404, notFound);
+                state::routeToWorkerMap.getWorkerByKey(node.operations.at(req.method).value).activate(req, res); //activates ref->ref2->ref4->ref5
             }
             else
             {
-                state::routeToWorkerMap.getWorkerByKey(node.operations.at(req.method).value).activate(req, res); //activates ref->ref2->ref4->ref5
+                res.send(404, notFound);
             }
             auto stream = res.serialize();
             send(new_socket, stream.str().c_str(), stream.str().length(), 0);
