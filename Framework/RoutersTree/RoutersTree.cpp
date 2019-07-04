@@ -19,9 +19,11 @@ std::string RoutersTree::operationToString(const Operation operation)
 
 void RoutersTree::add(Operation operation, const std::string &path)
 {
+	const auto modifiedPath = path[path.length() - 1] == '/' ? path.substr(0, path.length() - 1) : path;
+
 	auto *currentNode = &root;
 	std::vector<std::string> keys{};
-	split(path, keys, '/');
+	split(modifiedPath, keys, '/');
 	std::string value{};
 	for (auto &key : keys)
 	{
@@ -80,9 +82,11 @@ void RoutersTree::add(Operation operation, const std::string &path)
 
 Node &RoutersTree::match(const std::string &path, Request_ &request)
 {
+	const auto modifiedPath = path[path.length() - 1] == '/' ? path.substr(0, path.length() - 1) : path;
+
 	auto *currentNode = &root;
 	std::vector<std::string> keys{};
-	split(path, keys, '/');
+	split(modifiedPath, keys, '/');
 	for (auto &key : keys)
 	{
 		trim(key);
