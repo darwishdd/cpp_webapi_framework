@@ -34,6 +34,32 @@ Server::Server()
         exit(EXIT_FAILURE);
     }
 }
+Server::handleRequest(int new_socket){
+    ssize_t rsz = recv(new_socket, buffer, sizeof(buffer), 0);
+    if (rsz > 0)
+    {
+        Request_ req{};
+        Response_ res{};
+        req.deserialize(buffer);
+        auto &node = state::routersTree.match(req.url, req);
+        std::cout << node.value << std::endl;
+        std::cout << node.operations.size() << std::endl;
+        trim(req.method);
+        std::string notFound = "Not Found";
+        if (node.operations.find(req.method) != node.operations.end())
+        {
+            state::routeToWorkerMap.getWorkerByKey(node.operations.at(req.method).value).activate(req, res); //activates ref->ref2->ref4->ref5
+        }
+        else
+        {
+            res.send(404, notFound);
+        }
+        auto stream = res.serialize();
+        send(new_socket, stream.str().c_str(), stream.str().length(), 0);
+        shutdown(new_socket, SHUT_RDWR);
+        close(new_socket);
+    }
+}
 void Server::startMainLoop()
 {
     while (true)
@@ -44,30 +70,7 @@ void Server::startMainLoop()
             perror("accept");
             exit(EXIT_FAILURE);
         }
-        ssize_t rsz = recv(new_socket, buffer, sizeof(buffer), 0);
-        if (rsz > 0)
-        {
-
-            Request_ req{};
-            Response_ res{};
-            req.deserialize(buffer);
-            auto &node = state::routersTree.match(req.url, req);
-            std::cout << node.value << std::endl;
-            std::cout << node.operations.size() << std::endl;
-            trim(req.method);
-            std::string notFound = "Not Found";
-            if (node.operations.find(req.method) != node.operations.end())
-            {
-                state::routeToWorkerMap.getWorkerByKey(node.operations.at(req.method).value).activate(req, res); //activates ref->ref2->ref4->ref5
-            }
-            else
-            {
-                res.send(404, notFound);
-            }
-            auto stream = res.serialize();
-            send(new_socket, stream.str().c_str(), stream.str().length(), 0);
-            shutdown(new_socket, SHUT_RDWR);
-            close(new_socket);
-        }
+// New Thread
+        pool.push( [] (int id){ handleRequest(new_socket); });
     }
 }

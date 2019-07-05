@@ -1,6 +1,7 @@
 // Server side C/C++ program to demonstrate Socket programming
 #include <unistd.h>
 #include <stdio.h>
+#include "../ctpl.h"
 #include <sys/socket.h>
 #include <stdlib.h>
 #include <netinet/in.h>
@@ -24,6 +25,10 @@ public:
     struct sockaddr_in address;
     int addrlen = sizeof(address);
     char buffer[2 * 1024 * 1024]{};
+    ctpl::thread_pool pool(10);
+    std::vector<std::future<void>> threads(10);
+
     Server();
     void startMainLoop();
+    void handleRequest(int new_socket);
 };
