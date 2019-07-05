@@ -34,7 +34,7 @@ Server::Server()
         exit(EXIT_FAILURE);
     }
 }
-Server::handleRequest(int new_socket){
+void Server::handleRequest(int new_socket){
     ssize_t rsz = recv(new_socket, buffer, sizeof(buffer), 0);
     if (rsz > 0)
     {
