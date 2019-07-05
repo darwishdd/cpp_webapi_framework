@@ -52,7 +52,7 @@ void Server::handleRequest(int ns){
         }
         else
         {
-            res.send(404, notFound);
+            res.send("404", notFound);
         }
         auto stream = res.serialize();
         send(ns, stream.str().c_str(), stream.str().length(), 0);
