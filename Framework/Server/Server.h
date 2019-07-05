@@ -29,5 +29,5 @@ public:
 
     Server();
     void startMainLoop();
-    void handleRequest(int new_socket);
+    void handleRequest(int ns);
 };

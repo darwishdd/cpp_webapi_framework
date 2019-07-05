@@ -34,8 +34,8 @@ Server::Server()
         exit(EXIT_FAILURE);
     }
 }
-void Server::handleRequest(int new_socket){
-    ssize_t rsz = recv(new_socket, buffer, sizeof(buffer), 0);
+void Server::handleRequest(int ns){
+    ssize_t rsz = recv(ns, buffer, sizeof(buffer), 0);
     if (rsz > 0)
     {
         Request_ req{};
@@ -55,9 +55,9 @@ void Server::handleRequest(int new_socket){
             res.send(404, notFound);
         }
         auto stream = res.serialize();
-        send(new_socket, stream.str().c_str(), stream.str().length(), 0);
-        shutdown(new_socket, SHUT_RDWR);
-        close(new_socket);
+        send(ns, stream.str().c_str(), stream.str().length(), 0);
+        shutdown(ns, SHUT_RDWR);
+        close(ns);
     }
 }
 void Server::startMainLoop()
@@ -71,6 +71,6 @@ void Server::startMainLoop()
             exit(EXIT_FAILURE);
         }
 // New Thread
-        pool.push( [] (int id){ handleRequest(new_socket); });
+        pool.push( [this] (int id){ handleRequest(new_socket); });
     }
 }
