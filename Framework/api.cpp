@@ -37,9 +37,8 @@ int main(int argc, char **argv, char **envp)
 		return -1;
 	}
 
-	RequestParser parser{};
-	parser.parse(envp);
-	Request_ &request = parser.request;
+	
+	Request_ request = parseRequest(envp);
 
 	auto requestString = request.serialize();
 

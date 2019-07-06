@@ -24,3 +24,4 @@ std::pair<std::string, std::string> splitPair(const std::string& str, const char
 	temp.second = str.substr(previous, current - previous);
 	return temp;
 }
+
