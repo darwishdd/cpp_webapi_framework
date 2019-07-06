@@ -119,13 +119,6 @@ Request_ parseRequest(char** envp)
 			request.headers.insert(splitPair(std::string{ thisEnv }, '='));
 		}
 	}
-	std::ofstream myfile;
-	myfile.open("debug.txt");
-
-	myfile << request.url.find(request.queryString) << std::endl;
-	myfile << request.url.substr(0, request.url.find(request.queryString)) << std::endl;
-	myfile << request.queryString << std::endl;
-	myfile.close();
-
+	
 	return request;
 }
