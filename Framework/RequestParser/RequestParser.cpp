@@ -94,11 +94,7 @@ Request_ parseRequest(char** envp)
 	};
 
 	//body
-	std::string line{};
-	while (getline(std::cin, line))
-	{
-		request.body += line + '\n';
-	}
+	std::cin >> request.body;
 	//main items
 	request.queryString = getEnvironmentVariable(QUERY_STRING);
 	request.url = getEnvironmentVariable(REQUEST_URI);
