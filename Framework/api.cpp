@@ -45,8 +45,8 @@ int main(int argc, char **argv, char **envp)
 	std::string responseString{};
 	send(sock, requestString.str().c_str(), requestString.str().length(), 0);
 
-	char buffer[1024]{};
-	valread = read(sock, buffer, 1024);
+	char buffer[4096]{};
+	valread = read(sock, buffer, 4096);
 
 	Response_ res{};
 	res.deserialize(buffer);
