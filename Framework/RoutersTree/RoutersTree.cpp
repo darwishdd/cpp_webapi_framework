@@ -1,6 +1,6 @@
 #include "RoutersTree.h"
 #include "../Utils/Utils.h"
-
+#include <iostream>
 std::string RoutersTree::operationToString(const Operation operation)
 {
 	switch (operation)
@@ -17,13 +17,15 @@ std::string RoutersTree::operationToString(const Operation operation)
 	}
 }
 
-void RoutersTree::add(Operation operation, const std::string& path)
+void RoutersTree::add(Operation operation, const std::string &path)
 {
-	auto* currentNode = &root;
+	const auto modifiedPath = path[path.length() - 1] == '/' ? path.substr(0, path.length() - 1) : path;
+
+	auto *currentNode = &root;
 	std::vector<std::string> keys{};
-	split(path, keys, '/');
+	split(modifiedPath, keys, '/');
 	std::string value{};
-	for (const auto& key : keys)
+	for (auto &key : keys)
 	{
 		value += key + '/';
 		if (currentNode->children.find(key) != currentNode->children.end())
@@ -52,7 +54,7 @@ void RoutersTree::add(Operation operation, const std::string& path)
 			else
 			{
 				//didn't find a parameter node
-				auto newNode = new Node{ true, key, param, value };
+				auto newNode = new Node{true, key, param, value};
 				allCreatedNodes.emplace_back(newNode);
 				currentNode->children.emplace(":", *newNode);
 				currentNode = newNode;
@@ -61,26 +63,27 @@ void RoutersTree::add(Operation operation, const std::string& path)
 		else
 		{
 			//didn't find any node, parameter or otherwise
-			auto newNode = new Node{ false, key, "", value };
+			auto newNode = new Node{false, key, "", value};
 			allCreatedNodes.emplace_back(newNode);
 			currentNode->children.emplace(key, *newNode);
 			currentNode = newNode;
 		}
 	}
 	auto operationNode = new Node{
-		false, RoutersTree::operationToString(operation), "", RoutersTree::operationToString(operation) + " " + currentNode->value };
+		false, RoutersTree::operationToString(operation), "", RoutersTree::operationToString(operation) + " " + currentNode->value};
 	allCreatedNodes.emplace_back(operationNode);
 	operationNode->isParameter = currentNode->isParameter;
 	operationNode->parameter = currentNode->parameter;
 	currentNode->operations.emplace(operationToString(operation), *operationNode);
 }
 
-Node& RoutersTree::match(const std::string& path, Request_& request)
+Node &RoutersTree::match(const std::string &path, Request_ &request)
 {
-	auto* currentNode = &root;
+	const auto modifiedPath = path[path.length() - 1] == '/' ? path.substr(0, path.length() - 1) : path;
+	auto *currentNode = &root;
 	std::vector<std::string> keys{};
-	split(path, keys, '/');
-	for (const auto& key : keys)
+	split(modifiedPath, keys, '/');
+	for (auto &key : keys)
 	{
 		if (currentNode->children.find(key) != currentNode->children.end())
 		{
@@ -93,6 +96,8 @@ Node& RoutersTree::match(const std::string& path, Request_& request)
 		}
 		else
 		{
+			auto emptyNode = new Node{false, key, "", "404"};
+			currentNode = emptyNode;
 			//return Page404(path);
 		}
 	}

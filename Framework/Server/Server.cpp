@@ -34,6 +34,32 @@ Server::Server()
         exit(EXIT_FAILURE);
     }
 }
+void Server::handleRequest(int ns){
+    ssize_t rsz = recv(ns, buffer, sizeof(buffer), 0);
+    if (rsz > 0)
+    {
+        Request_ req{};
+        Response_ res{};
+        req.deserialize(buffer);
+        auto &node = state::routersTree.match(req.url, req);
+        std::cout << node.value << std::endl;
+        std::cout << node.operations.size() << std::endl;
+        trim(req.method);
+        std::string notFound = "Not Found";
+        if (node.operations.find(req.method) != node.operations.end())
+        {
+            state::routeToWorkerMap.getWorkerByKey(node.operations.at(req.method).value).activate(req, res); //activates ref->ref2->ref4->ref5
+        }
+        else
+        {
+            res.send("404", notFound);
+        }
+        auto stream = res.serialize();
+        send(ns, stream.str().c_str(), stream.str().length(), 0);
+        shutdown(ns, SHUT_RDWR);
+        close(ns);
+    }
+}
 void Server::startMainLoop()
 {
     while (true)
@@ -44,20 +70,7 @@ void Server::startMainLoop()
             perror("accept");
             exit(EXIT_FAILURE);
         }
-        ssize_t rsz = recv(new_socket, buffer, sizeof(buffer), 0);
-        if (rsz > 0)
-        {
-
-            Request_ req{};
-            Response_ res{};
-            req.deserialize(buffer);
-            state::routeToWorkerMap.getWorkerByKey(
-                                       state::routersTree.match(req.url, req).operations.at(req.method).value)
-                .activate(req, res); //activates ref->ref2->ref4->ref5
-            auto stream = res.serialize();
-            send(new_socket, stream.str().c_str(), stream.str().length(), 0);
-            shutdown(new_socket, SHUT_RDWR);
-            close(new_socket);
-        }
+// New Thread
+        pool.push( [this] (int id){ handleRequest(new_socket); });
     }
 }

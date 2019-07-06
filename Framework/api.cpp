@@ -48,14 +48,8 @@ int main(int argc, char **argv, char **envp)
 	char buffer[1024]{};
 	valread = read(sock, buffer, 1024);
 
-	std::cout << "Content-type:text/html\r\n\r\n";
-	std::cout << "<html>\n";
-	std::cout << "<head>\n";
-	std::cout << "<title>CGI Environment Variables</title>\n";
-	std::cout << "</head>\n";
-	std::cout << "<body>\n";
-	std::cout << responseString << std::endl;
-	std::cout << "</body>\n";
-	std::cout << "</html>\n";
+	Response_ res{};
+	res.deserialize(buffer);
+	res.sendToUser();
 	return 0;
 }

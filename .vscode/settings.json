@@ -58,6 +58,24 @@
         "xstring": "cpp",
         "xtr1common": "cpp",
         "xtree": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "atomic": "cpp",
+        "chrono": "cpp",
+        "condition_variable": "cpp",
+        "ctime": "cpp",
+        "deque": "cpp",
+        "resumable": "cpp",
+        "future": "cpp",
+        "locale": "cpp",
+        "mutex": "cpp",
+        "queue": "cpp",
+        "ratio": "cpp",
+        "regex": "cpp",
+        "xthread": "cpp",
+        "thread": "cpp",
+        "xlocbuf": "cpp",
+        "xlocmes": "cpp",
+        "xlocmon": "cpp",
+        "xloctime": "cpp"
     }
 }

@@ -5,25 +5,37 @@
 #include <utility>
 #include <vector>
 #include "../Utils/Utils.h"
+#include <stdio.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <string.h>
+#include <iostream>
 
 class Response_
 {
 public:
-	int statusCode{};
+	std::string statusCode{};
 	std::string data;
 	std::map<std::string, std::string> Headers;
 
-	void send(int StatusCode, std::string &message)
+	void send(std::string StatusCode, std::string &message)
 	{
 		statusCode = StatusCode;
-		data = std::move(message);
+		data = "<status>" +message + "<message>";
 	}
-	void send(int StatusCode, const std::string &message, const std::map<std::string, std::string> &headers)
+	void send(std::string StatusCode, const std::string &message, const std::map<std::string, std::string> &headers)
 	{
 		statusCode = StatusCode;
-		data = message + "<message>";
+		data = "<status>" +message + "<message>";
 		Headers = headers;
 	}
+	 void sendToUser()
+    {
+        std::cout << "Status: " + statusCode + "/n";
+        std::cout << "Content-Type: application/json\r\n\r\n";
+        std::cout << data;
+    }
 	void setHeaders(std::string &key, std::string &value)
 	{
 		Headers.insert({key, value});
@@ -31,7 +43,9 @@ public:
 	std::stringstream serialize()
 	{
 		std::stringstream out;
+		out << statusCode;
 		out << data;
+		
 		unsigned int i = 0;
 		for (const auto &elem : Headers)
 		{
@@ -51,15 +65,20 @@ public:
 		std::stringstream sin{bin};
 		std::string message{sin.str()};
 
-		const auto current = message.find("<message>");
-		data = message.substr(0, current);
+		std::size_t previous = 0;
+		auto current = message.find("<status>");
+		statusCode = message.substr(previous, current);
+		previous = current + 8;
 
-		const auto HeadersString = message.substr(current + 9, message.length());
+		current = message.find("<message>");
+		data = message.substr(previous,current-previous);
+		previous = current + 9;
+
+		auto HeadersString = message.substr(previous, message.length());
 		std::vector<std::string> headerStringsVector{};
 		split(HeadersString, headerStringsVector, ',');
-		for (const auto &header : headerStringsVector)
-		{
-			Headers.insert(splitPair(std::string{header}, ':'));
+		for (auto header : headerStringsVector) {
+			Headers.insert(splitPair(std::string{ header }, ':'));
 		}
 	}
 };

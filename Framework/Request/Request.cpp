@@ -85,30 +85,37 @@ void Request_::deserialize(char *bin)
 
 	auto current = stringkbeer.find("<url>");
 	url = stringkbeer.substr(previous, current);
+	trim(url);
 	previous = current + 5;
 
 	current = stringkbeer.find("<ip>");
 	ip = stringkbeer.substr(previous, current - previous);
+	trim(ip);
 	previous = current + 4;
 
 	current = stringkbeer.find("<method>");
 	method = stringkbeer.substr(previous, current - previous);
+	trim(method);
 	previous = current + 8;
 
 	current = stringkbeer.find("<root>");
 	root = stringkbeer.substr(previous, current - previous);
+	trim(root);
 	previous = current + 6;
 
 	current = stringkbeer.find("<body>");
 	body = stringkbeer.substr(previous, current - previous);
+	trim(body);
 	previous = current + 6;
 
 	current = stringkbeer.find("<query>");
 	queryString = stringkbeer.substr(previous, current - previous);
+	trim(queryString);
 	previous = current + 7;
 
 	current = stringkbeer.find("<headers>");
 	headersString = stringkbeer.substr(previous, current - previous);
+	trim(headersString);
 	previous = current + 9;
 
 	std::vector<std::string> queryStringsVector{};
