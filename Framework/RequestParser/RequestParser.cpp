@@ -1,5 +1,5 @@
 #include "RequestParser.h"
-
+#include <sstream>
 
 Request_ parseRequest(char** envp)
 {
@@ -94,7 +94,9 @@ Request_ parseRequest(char** envp)
 	};
 
 	//body
-	std::cin >> request.body;
+	std::stringstream post;
+	post << std::cin.rdbuf();
+	request.body = post.str();
 	//main items
 	request.queryString = getEnvironmentVariable(QUERY_STRING);
 	request.url = getEnvironmentVariable(REQUEST_URI);
