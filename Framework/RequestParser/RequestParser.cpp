@@ -1,10 +1,10 @@
 #include "RequestParser.h"
 
 
-Request_& parseRequest(char** envp)
+Request_ parseRequest(char** envp)
 {
-	auto *requestPtr = new Request_{};
-	auto request = *requestPtr;
+	// auto *requestPtr = new Request_{};
+	auto request = Request_{};
 
 	enum EnvironmentVariable
 	{
@@ -33,8 +33,7 @@ Request_& parseRequest(char** envp)
 		SERVER_SIGNATURE,
 		SERVER_SOFTWARE
 	};
-	auto environmentVariableToString = [](const EnvironmentVariable variable)->std::string
-	{
+	auto environmentVariableToString = [=](const EnvironmentVariable variable) -> std::string {
 		switch (variable)
 		{
 		case COMSPEC:
@@ -90,15 +89,16 @@ Request_& parseRequest(char** envp)
 		}
 	};
 
-	const auto getEnvironmentVariable = [](const EnvironmentVariable variable)->std::string
-	{
+	const auto getEnvironmentVariable = [=](const EnvironmentVariable variable) -> std::string {
 		return getenv(environmentVariableToString(variable).c_str()) == nullptr ? std::string{} : getenv(environmentVariableToString(variable).c_str());
 	};
 
 	//body
 	std::cin >> request.body;
 	//main items
+	request.queryString = getEnvironmentVariable(QUERY_STRING);
 	request.url = getEnvironmentVariable(REQUEST_URI);
+	request.url = request.url.substr(0, request.url.find(request.queryString) - 1);
 	request.ip = getEnvironmentVariable(REMOTE_ADDR);
 	request.method = getEnvironmentVariable(REQUEST_METHOD);
 	request.root = getEnvironmentVariable(SCRIPT_NAME);
@@ -119,5 +119,13 @@ Request_& parseRequest(char** envp)
 			request.headers.insert(splitPair(std::string{ thisEnv }, '='));
 		}
 	}
-	return *requestPtr;
+	std::ofstream myfile;
+	myfile.open("debug.txt");
+
+	myfile << request.url.find(request.queryString) << std::endl;
+	myfile << request.url.substr(0, request.url.find(request.queryString)) << std::endl;
+	myfile << request.queryString << std::endl;
+	myfile.close();
+
+	return request;
 }

@@ -5,6 +5,6 @@
 #include <typeinfo>
 #include "../Utils/Utils.cpp"
 
-Request_&  parseRequest( char** envp);
+Request_  parseRequest( char** envp);
 
 
