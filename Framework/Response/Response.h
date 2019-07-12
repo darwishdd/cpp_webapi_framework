@@ -33,6 +33,8 @@ public:
 	 void sendToUser()
     {
         std::cout << "Status: " + statusCode + "/n";
+		std::cout << "Access-Control-Allow-Origin: *\n";
+		std::cout << "Access-Control-Allow-Headers: Content-Type\n";
         std::cout << "Content-Type: application/json\r\n\r\n";
         std::cout << data;
     }

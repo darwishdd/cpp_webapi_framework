@@ -40,6 +40,16 @@ int main(int argc, char **argv, char **envp)
 	
 	Request_ request = parseRequest(envp);
 
+	if(request.method == "OPTIONS")
+	{
+		std::cout << "Status: 200/n";
+		std::cout << "Access-Control-Allow-Origin: *\n";
+		std::cout << "Access-Control-Allow-Methods: GET,PUT,DELETE,POST,PATCH,OPTIONS\n";
+		std::cout << "Access-Control-Allow-Headers: Content-Type\n";
+		std::cout << "Content-Type: application/json\r\n\r\n";
+		return 0;
+	}
+
 	auto requestString = request.serialize();
 
 	std::string responseString{};

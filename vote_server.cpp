@@ -91,6 +91,13 @@ const auto submitVote = [](Request_ &request, Response_ &response) -> bool {
 	}
 };
 
+const auto deleteVote = [](Request_ &request, Response_ &response) -> bool {
+	auto pollID = getPathEnd(request.url, '/');
+	RestClient::Response r = RestClient::del("https://vote-ff13e.firebaseio.com/polls/" + pollID + ".json");
+	response.send(std::to_string(r.code), r.body);
+	return true;
+};
+
 int main()
 {
 	Router pollsRouter{"/cgi-bin/api/polls"};
@@ -100,7 +107,12 @@ int main()
 	pollsRouter.on(GET, "search", searchPollsByKeyword);
 
 	pollsRouter.on(POST, addPoll);
-	pollsRouter.on(POST, ":id", submitVote);
+	pollsRouter.on(PUT, ":id", submitVote);
+	// pollsRouter.on(POST, ":id", submitVote);
+
+
+	pollsRouter.on(DELETE, ":id", deleteVote);
+	// pollsRouter.on(POST, "delete/:id", deleteVote);
 
 	Server server{};
 	server.startMainLoop();
